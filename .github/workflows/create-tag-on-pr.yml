@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       
-      - run: echo ${{ github.event }}
+      - run: echo ${{ toJson(github.event) }}
             
           
 #       - name : Get version from msg
