@@ -2,48 +2,26 @@ name: Create tag on PR
 
 on:
   push:
-    branches: [main]
-#   pull_request:
-#     types:
-#           - closed
-
-    
+    branches:
+      - main
 jobs:
   build:
-#     if: github.event.pull_request.merged == true
+    if: contains( github.event.head_commit.message, 'Updating to' )
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      
-#       - name: Read Version
-#         id: version
-#         uses: juliangruber/read-file-action@v1
-#         with:
-#           path: ./version.txt
+            
           
-          
-#       - name : Get version from pr
-#         run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
-#         id: version
+      - name : Get version from pr
+        run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
+        id: version
       
-      - name: tag
-        run: |
-            git remote -v
-            git push upstream Test
-#       - name: Create tag from version
-#         uses: rickstaa/action-create-tag@v1
-#         with:
-#           tag: "Test"
-#           message: "New version ${{ steps.version.outputs.version }}"
-#       - name: Create tag
-#         uses: actions/github-script@v5
-#         with:
-#           script: |
-#             github.rest.git.createRef({
-#               owner: context.repo.owner,
-#               repo: context.repo.repo,
-#               ref: 'refs/tags/${{ steps.version.outputs.version }}',
-#               sha: context.sha
-              
-#             })
+
+      - name: Create tag from version
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ steps.version.outputs.version }}
+          message: "New version ${{ steps.version.outputs.version }}"
