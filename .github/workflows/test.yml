@@ -1,0 +1,32 @@
+name: Build and release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types:
+          - closed
+
+    
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      
+#       - name: Read Version
+#         id: version
+#         uses: juliangruber/read-file-action@v1
+#         with:
+#           path: ./version.txt
+          
+          
+      - name : Get version from pr
+        run: ./get-version-from-pr.sh
+        id: version
+        
+      - name: Print version
+        run: echo ${{ steps.version.outputs.version }}
