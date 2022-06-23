@@ -19,7 +19,10 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       
-      - run: echo ${{ toJson(github.event) }}
+      - name : GITHUB CONTEXT
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
             
           
 #       - name : Get version from msg
