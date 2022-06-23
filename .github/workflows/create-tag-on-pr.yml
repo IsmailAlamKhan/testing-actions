@@ -29,8 +29,19 @@ jobs:
         id: version
       
 
-      - name: Create tag from version
-        uses: rickstaa/action-create-tag@v1
+#       - name: Create tag from version
+#         uses: rickstaa/action-create-tag@v1
+#         with:
+#           tag: ${{ steps.version.outputs.version }}
+#           message: "New version ${{ steps.version.outputs.version }}"
+      - name: Create tag
+        uses: actions/github-script@v5
         with:
-          tag: ${{ steps.version.outputs.version }}
-          message: "New version ${{ steps.version.outputs.version }}"
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ steps.version.outputs.version }}',
+              sha: context.sha
+              
+            })
