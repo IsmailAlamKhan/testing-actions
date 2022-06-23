@@ -38,3 +38,6 @@ jobs:
              ref: "refs/tags/${{ steps.version.outputs.version }}",
               sha: context.sha
             })
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MY_PAT }}
