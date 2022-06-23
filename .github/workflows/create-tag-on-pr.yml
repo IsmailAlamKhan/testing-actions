@@ -1,4 +1,4 @@
-name: Build and release
+name: Create tag on PR
 
 on:
   push:
