@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#       - name: Checkout the code
-#         uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
         
-#       - name: Read Version
-#         id: version
-#         uses: juliangruber/read-file-action@v1
-#         with:
-#           path: ./version.txt
+      - name: Read Version
+        id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./version.txt
           
           
       - name : Print Title of PR
