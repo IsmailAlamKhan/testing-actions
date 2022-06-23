@@ -16,13 +16,17 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-        
-      - name: Read Version
+      
+#       - name: Read Version
+#         id: version
+#         uses: juliangruber/read-file-action@v1
+#         with:
+#           path: ./version.txt
+          
+          
+      - name : Get version from pr
+        run: ./get-version-from-pr.sh
         id: version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./version.txt
-          
-          
-      - name : Print Title of PR
-        run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+        
+      - name: Print version
+        run: echo ${{ steps.version.outputs.version }}
