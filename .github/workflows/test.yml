@@ -25,10 +25,8 @@ jobs:
           
           
       - name : Get version from pr
-        run: sh ./get-version-from-pr.sh
+        run: sh ./get-version-from-pr.sh ${{ github.event.pull_request.title }}
         id: version
-        env:
-          pr_title: ${{ github.event.pull_request.title }}
         
       - name: Print version
         run: echo ${{ steps.version.outputs.version }}
