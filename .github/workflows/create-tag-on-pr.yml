@@ -23,15 +23,12 @@ jobs:
         id: version
       
 
-#       - name: Create tag from version
-#         uses: rickstaa/action-create-tag@v1
-#         with:
-#           tag: ${{ steps.version.outputs.version }}
-#           message: "New version ${{ steps.version.outputs.version }}"
+      - name: Print token
+        run: echo ${{ secrets.PAT }}
       - name: push git tag
         run: |
          curl -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs \
-           -H "Authorization: token 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" \
+           -H "Authorization: token ${{ secrets.PAT }}" \
            -d '{ "ref": "refs/tags/${{ steps.version.outputs.version }}", "sha": "shavalue" }'
 #       - name: Bump version and push tag
 #         id: tag_version
