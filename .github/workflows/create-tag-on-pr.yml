@@ -27,12 +27,15 @@ jobs:
 #         run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
 #         id: version
       
-
-      - name: Create tag from version
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "Test"
-          message: "New version ${{ steps.version.outputs.version }}"
+      - name: tag
+        run: |
+            git remote -v
+            git push upstream Test
+#       - name: Create tag from version
+#         uses: rickstaa/action-create-tag@v1
+#         with:
+#           tag: "Test"
+#           message: "New version ${{ steps.version.outputs.version }}"
 #       - name: Create tag
 #         uses: actions/github-script@v5
 #         with:
