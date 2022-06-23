@@ -30,12 +30,12 @@ jobs:
         env:
           TAG: ${{ steps.version.outputs.version }}
         with:
-          github-token: ${{ secrets.PAT }}
+          github-token: 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
           script: |
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-             ref: "refs/tags/${{ steps.version.outputs.version }}",
+             ref: "refs/tags/$TAG",
               sha: context.sha
             })
       - uses: actions/checkout@v2
