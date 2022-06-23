@@ -6,6 +6,7 @@ on:
       - main
 jobs:
   build:
+    environment: TEST
     if: contains( github.event.head_commit.message, 'Updating to' )
     runs-on: ubuntu-latest
     permissions:
