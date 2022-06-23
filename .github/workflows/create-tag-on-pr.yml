@@ -26,25 +26,25 @@ jobs:
 
       - name: Print token
         run: echo ${{ secrets.PAT }}
-      - name: push git tag
-        run: |
-         curl -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs \
-           -H "Authorization: token ${{ secrets.PAT }}" \
-           -d '{ "ref": "refs/tags/${{ steps.version.outputs.version }}", "sha": "shavalue" }'
+#       - name: push git tag
+#         run: |
+#          curl -s -X POST https://api.github.com/repos/${{ github.repository }}/git/refs \
+#            -H "Authorization: token ${{ secrets.PAT }}" \
+#            -d '{ "ref": "refs/tags/${{ steps.version.outputs.version }}", "sha": "shavalue" }'
 #       - name: Bump version and push tag
 #         id: tag_version
 #         uses: mathieudutour/github-tag-action@v6.0
 #         with:
 #           github_token: "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"
-#       - name: Create Tag
-#         uses: actions/github-script@v3
-#         with:
-#           github-token: "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"
-#           script: |
-#             github.git.createRef({
-#               owner: context.repo.owner,
-#               repo: context.repo.repo,
-#              ref: "refs/tags/${{ steps.version.outputs.version }}",
-#               sha: context.sha
-#             })
+      - name: Create Tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+             ref: "refs/tags/${{ steps.version.outputs.version }}",
+              sha: context.sha
+            })
       - uses: actions/checkout@v2
