@@ -25,7 +25,7 @@ jobs:
           
           
       - name : Get version from pr
-        run: ./get-version-from-pr.sh
+        run: sh ./get-version-from-pr.sh
         id: version
         
       - name: Print version
