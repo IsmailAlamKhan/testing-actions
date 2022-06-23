@@ -27,11 +27,8 @@ jobs:
 #           message: "New version ${{ steps.version.outputs.version }}"
       - name: Create Tag
         uses: actions/github-script@v3
-        env:
-          TAG: ${{ steps.version.outputs.version }}
-          GITHUB_TOKEN: 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
         with:
-          github-token: GITHUB_TOKEN
+          github-token: "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"
           script: |
             github.git.createRef({
               owner: context.repo.owner,
