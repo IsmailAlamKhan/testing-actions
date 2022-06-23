@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       
-      - run: echo ${{ github.event.pull_request }}
+      - run: echo ${{ github.event }}
             
           
 #       - name : Get version from msg
