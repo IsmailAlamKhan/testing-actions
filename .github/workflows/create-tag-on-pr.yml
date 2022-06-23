@@ -16,7 +16,7 @@ jobs:
             
           
       - name : Get version from pr
-        run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
+        run: bash ./get-version-from-pr.sh "${{ github.event.head_commit.message }}"
         id: version
       
 
