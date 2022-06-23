@@ -1,14 +1,14 @@
 name: Create tag on PR
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - master
 jobs:
   build:
     environment: TEST
-#     if: contains( github.event.head_commit.message, 'Updating to' )
-    if: github.event.pull_request.merged == true
+    if: contains( github.event.head_commit.message, 'Updating to' )
+#     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -21,7 +21,7 @@ jobs:
             
           
       - name : Get version from msg
-        run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
+        run: bash ./get-version-from-pr.sh "${{ github.event.head_commit.message }}"
         id: version
     
       - name: Create Tag
