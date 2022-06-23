@@ -3,9 +3,9 @@ name: Create tag on PR
 on:
   push:
     branches: [main]
-  pull_request:
-    types:
-          - closed
+#   pull_request:
+#     types:
+#           - closed
 
     
 jobs:
@@ -25,15 +25,15 @@ jobs:
 #           path: ./version.txt
           
           
-      - name : Get version from pr
-        run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
-        id: version
+#       - name : Get version from pr
+#         run: bash ./get-version-from-pr.sh "${{ github.event.pull_request.title }}"
+#         id: version
       
 
       - name: Create tag from version
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: ${{ steps.version.outputs.version }}
+          tag: "Test"
           message: "New version ${{ steps.version.outputs.version }}"
 #       - name: Create tag
 #         uses: actions/github-script@v5
