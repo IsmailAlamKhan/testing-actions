@@ -30,7 +30,7 @@ jobs:
         env:
           TAG: ${{ steps.version.outputs.version }}
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.PAT }}
           script: |
             github.git.createRef({
               owner: context.repo.owner,
