@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     environment: TEST
-    if: contains( github.event.head_commit.message, 'Updating to' )
-#     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -20,9 +18,18 @@ jobs:
           persist-credentials: false
             
           
-      - name : Get version from msg
-        run: bash ./get-version-from-pr.sh "${{ github.event.head_commit.message }}"
+      - name: Read Version
         id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./version.txt
+
+      - name: Fix version
+        id: fixed-version
+        run: |
+          version=${{steps.version.outputs.content}}
+          echo '::set-output name=version::$(version | tr -d '[:space:]'')'
+
     
       - name: Create Tag
         if: ${{ steps.version.outputs.version }} != ''
@@ -33,7 +40,7 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-             ref: "refs/tags/${{ steps.version.outputs.version }}",
+             ref: "refs/tags/${{ steps.fixed-version.outputs.version }}",
               sha: context.sha
             })
       - uses: actions/checkout@v2
