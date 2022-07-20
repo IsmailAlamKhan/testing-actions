@@ -26,11 +26,8 @@ jobs:
 
       - name: Fix version
         id: fixed-version
-        run: |
-          version=${{steps.version.outputs.content}}
-          echo "::set-output name=version::$(echo $version| tr -d '[:space:]')"
-
-    
+        run: bash ./get-version-from-pr.sh "${{steps.version.outputs.content}}"
+         
       - name: Create Tag
         if: ${{ steps.version.outputs.version }} != ''
         uses: actions/github-script@v3
