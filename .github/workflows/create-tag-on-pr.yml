@@ -28,7 +28,7 @@ jobs:
         id: fixed-version
         run: |
           version=${{steps.version.outputs.content}}
-          echo '::set-output name=version::$(version | tr -d '[:space:]'')'
+          echo "::set-output name=version::$(echo $version| tr -d '[:space:]')"
 
     
       - name: Create Tag
