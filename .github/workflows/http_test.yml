@@ -11,7 +11,8 @@ jobs:
         id: myRequest
         run: |
           response=$(curl https://deto-events.com/v1/version)
-          echo "::set-output name=response::$(echo response from curl= $response)"
+          # echo "::set-output name=response::$(echo response from curl= $response)"
+          echo "{response}={$response}" >> $GITHUB_OUTPUT
 
       - name: Show Response
         run: |
@@ -20,6 +21,6 @@ jobs:
       - name: Upload Response
         uses: actions/upload-artifact@v2
         with:
-          name: response
+          name: response.json
           path: response.json
 # echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
