@@ -11,10 +11,15 @@ jobs:
         id: myRequest
         run: |
           response=$(curl https://deto-events.com/v1/version)
-          echo "::set-output name=response::$($response)"
+          echo "::set-output name=response::$(echo response from curl= $response)"
 
       - name: Show Response
         run: |
-          echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ steps.myRequest.outputs.response }} > response.json
 
+      - name: Upload Response
+        uses: actions/upload-artifact@v2
+        with:
+          name: response
+          path: response.json
 # echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
