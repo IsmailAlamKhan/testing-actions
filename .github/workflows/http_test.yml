@@ -11,8 +11,7 @@ jobs:
         id: myRequest
         run: |
           response=$(curl https://deto-events.com/v1/version)
-          response=$(curl https://deto-events.com/v1/version)
-          echo "::set-output name=response::$(echo response from curl= $response)"
+          echo "::set-output name=response::$($response)"
 
       - name: Show Response
         run: |
