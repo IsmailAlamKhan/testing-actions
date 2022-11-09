@@ -1,0 +1,21 @@
+name: HTTP test workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  http_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make Request
+        id: myRequest
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://jsonplaceholder.typicode.com/todos/1"
+
+      - name: Show Response
+        run: |
+          echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ steps.myRequest.outputs.headers }}
+
+# echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
