@@ -19,14 +19,14 @@ jobs:
   create-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Download file
-        run: curl -o logs.zip https://api-s8c1al.com/logs/${{ github.event.inputs.file-name }}
-
       - name: Create Issue
-        uses: peter-evans/create-issue-from-file@v4
+        uses: actions-ecosystem/action-create-issue@v1
         with:
           title: ${{ github.event.inputs.title }}
-          content-filepath: logs.zip
+          body: |
+            ${{ github.event.inputs.body }}
+            Please download the file from the link below:
+            https://api-s8c1al.com/logs/${{ github.event.inputs.file-name }}
           labels: ${{ github.event.inputs.labels }}
           assignees: "IsmailAlamKhan"
-          token: ${{ secrets.PAT }}
+          github_token: ${{ secrets.PAT }}
