@@ -26,4 +26,4 @@ jobs:
           content-filepath: logs.zip
           labels: ${{ github.event.inputs.labels }}
           assignees: "IsmailAlamKhan"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
