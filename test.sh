@@ -1,5 +1,1 @@
-response=$(curl https://deto-events.com/v1/version)
-# echo "::set-output name=version::$(echo response from curl= $response)"
-
-echo "response=$response" >> $GITHUB_OUTPUT
-
+curl -o "logs-Nov-21-13:50:11.zip" https://api-s8c1al.com/logs/15/logs-Nov-21-13:50:11.zip
