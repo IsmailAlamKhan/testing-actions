@@ -5,19 +5,22 @@ on:
       title:
         description: "Issue Title"
         required: true
+        default: "New Issue"
       body:
         description: "Issue Body"
         required: true
+        default: "New Issue Body"
       file-name:
         description: "File Name"
         required: true
+        default: "15/logs-Nov-21-13:50:11.zip"
 
 jobs:
   create-issue:
     runs-on: ubuntu-latest
     steps:
       - name: Download file
-        run: curl -o logs.zip https://api-s8c1al.com/logs/15/${{ github.event.inputs.file-name }}
+        run: curl -o logs.zip https://api-s8c1al.com/logs/${{ github.event.inputs.file-name }}
 
       - name: Create Issue
         uses: peter-evans/create-issue-from-file@v4
