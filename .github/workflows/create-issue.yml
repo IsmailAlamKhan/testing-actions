@@ -30,6 +30,6 @@ jobs:
             https://api-s8c1al.com/logs/${{ github.event.inputs.file-name }}
           labels: ${{ github.event.inputs.labels }}
           assignees: "IsmailAlamKhan"
-          github_token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT }}
       - name: Get the issue id
         run: echo "The issue id is ${{ steps.create-issue.outputs.issue-id }}"
