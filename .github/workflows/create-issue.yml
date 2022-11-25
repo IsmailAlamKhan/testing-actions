@@ -33,7 +33,7 @@ jobs:
       - name: Get issue url
         id: get-issue-url
         # run: echo "::set-output name=issue_url::$(echo '${{ steps.create-issue.outputs.json }}' | jq ".url")"
-        run: echo "{issue_url}={echo '${{ steps.create-issue.outputs.json }}' | jq ".url"}" >> $GITHUB_OUTPUT
+        run: echo "issue_url=$(echo '${{ steps.create-issue.outputs.json }}' | jq ".url")" >> $GITHUB_OUTPUT
 
       - name: Echo issue url
         run: echo ${{ steps.get-issue-url.outputs.issue_url }}
