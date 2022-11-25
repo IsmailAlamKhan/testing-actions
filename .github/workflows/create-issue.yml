@@ -32,4 +32,5 @@ jobs:
           token: ${{ secrets.PAT }}
       - name: Issue json
         run: |
-          echo ${{ steps.new-issue.outputs.json }} | jq .url
+
+          echo "${{ steps.new-issue.outputs.json }}" | jq ".url"
