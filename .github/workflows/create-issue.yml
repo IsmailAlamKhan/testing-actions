@@ -27,9 +27,11 @@ jobs:
           body: |
             ${{ github.event.inputs.body }}
             Please download the file from the link below:
-            https://api-s8c1al.com/logs/${{ github.event.inputs.file-name }}
           labels: ${{ github.event.inputs.labels }}
           assignees: "IsmailAlamKhan"
           token: ${{ secrets.PAT }}
-      - name: Get the issue id
-        run: echo "The issue id is ${{ steps.create-issue.outputs.issue-id }}"
+      - name: Issue json
+        run: |
+          echo "${{ steps.new-issue.outputs.json }}" | jq
+          echo "${{ steps.new-issue.outputs.json }}" | jq .state
+          echo "${{ steps.new-issue.outputs.json }}" | jq .labels[].name
