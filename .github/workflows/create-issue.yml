@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Create Issue
         uses: dacbd/create-issue-action@v1
-        id: new-issue
+        id: create-issue
         with:
           title: ${{ github.event.inputs.title }}
           body: |
