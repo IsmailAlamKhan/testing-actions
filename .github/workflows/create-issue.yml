@@ -30,7 +30,9 @@ jobs:
           labels: ${{ github.event.inputs.labels }}
           assignees: "IsmailAlamKhan"
           token: ${{ secrets.PAT }}
-      - name: Issue json
-        run: |
+      - name: Get issue url
+        id: get-issue-url
+        run: echo "::set-output name=issue_url::$(echo '${{ steps.new-issue.outputs.json }}' | jq ".url")"
 
-          echo "${{ steps.new-issue.outputs.json }}" | jq ".url"
+      - name: Echo issue url
+        run: echo ${{ steps.get-issue-url.outputs.issue_url }}
