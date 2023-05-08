@@ -5,11 +5,41 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup:
+  #   setup:
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #       - name: Checkout the code
+  #         uses: actions/checkout@v2
+
+  #       - name: Cache pubspec dependencies
+  #         uses: actions/cache@v2
+  #         with:
+  #           path: |
+  #             ${{ env.FLUTTER_HOME }}/.pub-cache
+  #             **/.packages
+  #             **/.flutter-plugins
+  #             **/.flutter-plugin-dependencies
+  #             **/.dart_tool/package_config.json
+  #           key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+  #           restore-keys: |
+  #             build-pubspec-
+
+  build:
+    defaults:
+      run:
+        shell: bash
+        working-directory: test_actions
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2.4.0
+        with:
+          channel: "stable"
+          cache: true
 
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
@@ -23,23 +53,6 @@ jobs:
           key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
             build-pubspec-
-
-  build:
-    defaults:
-      run:
-        shell: bash
-        working-directory: test_actions
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Install and set Flutter version
-        uses: subosito/flutter-action@v2.4.0
-        with:
-          channel: "stable"
-          cache: true
 
       - name: Flutter doctor
         run: flutter doctor -v
