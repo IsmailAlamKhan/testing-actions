@@ -2,6 +2,7 @@ name: Build and release
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   setup:
@@ -16,7 +17,21 @@ jobs:
           channel: "stable"
           cache: true
 
-      - run: flutter doctor -v
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      - name: Cache pubspec dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+            **/.packages
+            **/.flutter-plugins
+            **/.flutter-plugin-dependencies
+            **/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            build-pubspec-
 
   build:
     defaults:
